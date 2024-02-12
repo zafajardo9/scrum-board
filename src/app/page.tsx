@@ -12,7 +12,9 @@ import React, {
 import { FiPlus, FiTrash } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { FaFire } from "react-icons/fa";
-import dynamic from 'next/dynamic';
+import { MdOutlineDeleteOutline } from "react-icons/md";
+
+// import dynamic from 'next/dynamic';
 
 
 export default function CustomKanban() {
@@ -63,28 +65,28 @@ const Board = ({ cards, setCards }: any) => {
       <Column
         title="Backlog"
         column="backlog"
-        headingColor="text-neutral-500"
+        headingColor="bg-neutral-500"
         cards={cards}
         setCards={setCards}
       />
       <Column
         title="TODO"
         column="todo"
-        headingColor="text-yellow-200"
+        headingColor="bg-[#940B92]"
         cards={cards}
         setCards={setCards}
       />
       <Column
         title="In progress"
         column="doing"
-        headingColor="text-blue-200"
+        headingColor="bg-[#1B1A55]"
         cards={cards}
         setCards={setCards}
       />
       <Column
         title="Complete"
         column="done"
-        headingColor="text-emerald-200"
+        headingColor="bg-[#519872]"
         cards={cards}
         setCards={setCards}
       />
@@ -214,9 +216,9 @@ const Column = ({
   const filteredCards = cards.filter((c) => c.column === column);
 
   return (
-    <div className="w-56 shrink-0">
+    <div className="p-2 w-56 shrink-0 border-r border-white border-opacity-10">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className={`font-medium ${headingColor}`}>{title}</h3>
+        <h3 className={`rounded-full px-6 font-bold ${headingColor}`}>{title}</h3>
         <span className="rounded text-sm text-neutral-400">
           {filteredCards.length}
         </span>
@@ -360,9 +362,9 @@ const AddCard = ({ column, setCards }: AddCardProps) => {
           <div className="mt-1.5 flex items-center justify-end gap-1.5">
             <button
               onClick={() => setAdding(false)}
-              className="px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
+              className="px-3 py-1.5 bg-red-400 rounded text-neutral-400 transition-colors hover:text-neutral-50 hover:bg-red-600"
             >
-              Close
+              <MdOutlineDeleteOutline />
             </button>
             <button
               type="submit"
@@ -377,9 +379,10 @@ const AddCard = ({ column, setCards }: AddCardProps) => {
         <motion.button
           layout
           onClick={() => setAdding(true)}
-          className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
+          // className="flex w-full items-center justify-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50 bg-red-500 rounded"
+          className="flex w-full items-center justify-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 transition-colors border border-white border-opacity-10 hover:bg-white hover:text-black rounded"
         >
-          <span>Add card</span>
+          {/* <span>Add card</span> */}
           <FiPlus />
         </motion.button>
       )}
@@ -397,14 +400,3 @@ type CardType = {
   id: string;
   column: ColumnType;
 };
-
-const DEFAULT_CARDS: CardType[] = [
-  // BACKLOG
-  { title: "Sample", id: "1", column: "backlog" },
-  // -TODO
-  { title: "Sample 2", id: "2", column: "todo" },
-  // DOING
-  { title: "Sample 3",id: "3",column: "doing" },
-  // DONE
-  { title: "Sample 4", id: "4", column: "done" },
-];
